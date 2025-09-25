@@ -1,8 +1,10 @@
 ﻿using GovConnect.Infrastructure.Mediator.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace GovConnect.Infrastructure.Mediator.Utils {
+    [ExcludeFromCodeCoverage(Justification = "")]
     public static class Extensions {
         public static void AddMediatorFromAssembly(this IServiceCollection services, Assembly assembly) {
             ArgumentNullException.ThrowIfNull(assembly);

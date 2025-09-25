@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 
 namespace GovConnect.Infrastructure.Mediator {
-    public sealed class Mediator : IMediator {
+    public class Mediator : IMediator {
         private readonly IServiceProvider _serviceProvider;
         private readonly ConcurrentDictionary<Type, IExecutor> _requestHandlers;
 
