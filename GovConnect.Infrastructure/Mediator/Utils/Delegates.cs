@@ -1,3 +1,3 @@
-﻿namespace GovConnect.Infrastructure.Mediator.Delegates {
+﻿namespace GovConnect.Infrastructure.Mediator.Utils {
     public delegate Task<TResponse> RequestHandlerDelegate<TResponse>(CancellationToken cancellationToken = default);
 }
