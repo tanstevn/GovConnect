@@ -7,8 +7,7 @@ namespace GovConnect.Infrastructure.IntegrationTests {
     public class MediatorTests {
         private IServiceCollection _services;
 
-        public MediatorTests()
-        {
+        public MediatorTests() {
             _services = new ServiceCollection();
             _services.AddSingleton<IMediator, Mediatr>();
         }

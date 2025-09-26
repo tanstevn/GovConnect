@@ -6,8 +6,7 @@ namespace GovConnect.Infrastructure.Mediator {
         private readonly IServiceProvider _serviceProvider;
         private readonly ConcurrentDictionary<Type, IExecutor> _requestHandlers;
 
-        public Mediator(IServiceProvider serviceProvider)
-        {
+        public Mediator(IServiceProvider serviceProvider) {
             _serviceProvider = serviceProvider;
             _requestHandlers = new();
         }

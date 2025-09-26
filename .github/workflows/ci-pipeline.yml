@@ -1,0 +1,30 @@
+# name: CI Pipeline
+
+# on:
+#     push:
+#         branches:
+#         - '**'
+#     pull_request:
+        
+# jobs:
+#     build:
+#         name: Build
+#         runs-on: ubuntu-latest
+
+#         steps:
+#             - name: Checkout Code
+#               uses: actions/checkout@v4
+
+#             - name: Setup .NET
+#               uses: actions/setup-dotnet@v4
+#               with:
+#                 dotnet-version: '8.*'
+
+#             - name: Restore Dependencies
+#               uses: dotnet restore
+
+#             - name: Build Solution
+#               uses: dotnet build --no-restore --configuration Release
+
+#             - name: Run Tests
+#               uses: dotnet test --no-build --configuration Release

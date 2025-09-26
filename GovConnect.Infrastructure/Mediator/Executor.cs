@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace GovConnect.Infrastructure.Mediator {
-    internal sealed class Executor<TRequest, TResponse> : IExecutor 
+    internal sealed class Executor<TRequest, TResponse> : IExecutor
         where TRequest : IRequest<TResponse> {
         public async Task<object> ExecuteAsync(object request, Type responseType, IServiceProvider serviceProvider, CancellationToken cancellationToken) {
             var requestHandler = serviceProvider

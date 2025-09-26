@@ -3,11 +3,10 @@
 namespace GovConnect.Shared.Attributes {
     [ExcludeFromCodeCoverage(Justification = "")]
     [AttributeUsage(AttributeTargets.Class)]
-    public sealed class PipelineOrderAttribute: Attribute {
+    public sealed class PipelineOrderAttribute : Attribute {
         public short Order { get; }
 
-        public PipelineOrderAttribute(short order)
-        {
+        public PipelineOrderAttribute(short order) {
             Order = order;
         }
     }
