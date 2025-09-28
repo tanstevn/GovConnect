@@ -24,6 +24,14 @@ namespace GovConnect.Data.Configuration {
                 .HasForeignKey<User>(user => user.UserDetailId)
                 .IsRequired();
 
+            builder
+                .HasOne(entity => entity.RequestStatusHistory)
+                .WithOne(history => history.User);
+
+            builder
+                .HasOne(entity => entity.Comment)
+                .WithOne(comment => comment.User);
+
             base.Configure(builder);
         }
     }

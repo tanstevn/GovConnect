@@ -24,6 +24,18 @@ namespace GovConnect.Data.Configuration {
                 .HasForeignKey(request => request.BarangayId)
                 .IsRequired();
 
+            builder
+                .HasMany(entity => entity.RequestAttachments)
+                .WithOne(requestAttachment => requestAttachment.Request);
+
+            builder
+                .HasMany(entity => entity.RequestStatusHistories)
+                .WithOne(history => history.Request);
+
+            builder
+                .HasMany(entity => entity.Comments)
+                .WithOne(comment => comment.Request);
+
             base.Configure(builder);
         }
     }

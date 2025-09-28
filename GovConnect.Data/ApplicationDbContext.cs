@@ -13,6 +13,15 @@ namespace GovConnect.Data {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<Barangay> Barangays { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
+        public DbSet<RequestAttachment> RequestAttchments { get; set; }
+        public DbSet<RequestStatusHistory> RequestStatusHistories { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<CommentAttachment> CommentAttachments { get; set; }
 
         public override int SaveChanges() {
             SaveChangesInternally();

@@ -13,5 +13,8 @@ namespace GovConnect.Data.Entities {
 
         public virtual Subcategory? Subcategory { get; set; }
         public virtual Barangay? Barangay { get; set; }
+        public virtual ICollection<RequestAttachment>? RequestAttachments { get; set; }
+        public virtual ICollection<RequestStatusHistory>? RequestStatusHistories { get; set; }
+        public virtual ICollection<Comment>? Comments { get; set; }
     }
 }
