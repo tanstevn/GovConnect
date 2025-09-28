@@ -1,4 +1,5 @@
 ﻿using GovConnect.Data.Abstractions;
+using GovConnect.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -8,6 +9,10 @@ namespace GovConnect.Data {
         public ApplicationDbContext() {
             base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserDetails> UserDetails { get; set; }
 
         public override int SaveChanges() {
             SaveChangesInternally();
@@ -46,7 +51,7 @@ namespace GovConnect.Data {
                     });
 
             foreach (var scopedEntry in entries) {
-                scopedEntry.Property(nameof(ISoftDelete.DateDeleted)).CurrentValue = DateTime.UtcNow;
+                scopedEntry.Property(nameof(ISoftDelete.DeletedAt)).CurrentValue = DateTime.UtcNow;
                 scopedEntry.State = EntityState.Modified;
             }
         }

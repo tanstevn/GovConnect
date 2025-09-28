@@ -10,7 +10,7 @@ namespace GovConnect.Data.Utils {
                 return builder;
             }
 
-            builder.HasQueryFilter(entity => !((ISoftDelete)entity).DateDeleted.HasValue);
+            builder.HasQueryFilter(entity => !((ISoftDelete)entity).DeletedAt.HasValue);
             return builder;
         }
 
