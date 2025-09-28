@@ -14,6 +14,8 @@ namespace GovConnect.Data {
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Municipal> Municipals { get; set; }
         public DbSet<Barangay> Barangays { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
