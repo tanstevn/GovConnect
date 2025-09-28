@@ -5,16 +5,24 @@ namespace GovConnect.Data.Configuration {
     public class UserConfiguration : BaseConfiguration<User> {
         public override void Configure(EntityTypeBuilder<User> builder) {
             builder
-                .Property(user => user.Auth0UserId)
+                .Property(entity => entity.Auth0UserId)
                 .IsRequired();
 
             builder
-                .HasOne(user => user.Role)
-                .WithOne(role => role.User);
+                .HasIndex(entity => entity.Auth0UserId)
+                .IsUnique();
 
             builder
-                .HasOne(user => user.UserDetails)
-                .WithOne(userDetails => userDetails.User);
+                .HasOne(entity => entity.Role)
+                .WithOne(role => role.User)
+                .HasForeignKey<User>(user => user.RoleId)
+                .IsRequired();
+
+            builder
+                .HasOne(entity => entity.UserDetails)
+                .WithOne(userDetails => userDetails.User)
+                .HasForeignKey<User>(user => user.UserDetailId)
+                .IsRequired();
 
             base.Configure(builder);
         }

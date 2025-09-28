@@ -12,6 +12,10 @@ namespace GovConnect.Data.Configuration {
                 .Property(entity => entity.LastName)
                 .IsRequired();
 
+            builder
+                .HasOne(entity => entity.User)
+                .WithOne(user => user.UserDetails);
+
             base.Configure(builder);
         }
     }
