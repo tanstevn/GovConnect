@@ -17,7 +17,7 @@ namespace GovConnect.Infrastructure.IntegrationTests.Samples.Mediator {
                 .NotEmpty()
                 .WithMessage(param => $"{nameof(param.Id)} should not be empty, null, and 0.")
                 .GreaterThanOrEqualTo(1)
-                .WithMessage(param => $"{nameof(param.Id)} should not be a negative value.");        
+                .WithMessage(param => $"{nameof(param.Id)} should not be a negative value.");
         }
     }
 
