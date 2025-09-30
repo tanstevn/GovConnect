@@ -8,7 +8,7 @@ namespace GovConnect.Api {
     public static class DependencyInjection {
         public static void ConfigureConfiguration(ConfigurationManager config) {
             config
-                .AddJsonFile("appsettings.local.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
         }
 
@@ -25,13 +25,13 @@ namespace GovConnect.Api {
             services.AddMediatorFromAssembly(typeof(MediatorAnchor).Assembly);
             services.AddValidatorsFromAssembly(typeof(MediatorAnchor).Assembly);
 
-            // Using In-Memory DB here to validate everthing in code first
-            // Before moving into an actual database that will probably be PostgreSQL
             services.AddDbContext<ApplicationDbContext>(options
-                => options.UseInMemoryDatabase("GovConnect"));
+                => options.UseSqlServer(config.GetConnectionString("Default")));
         }
 
         public static void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
+            var test = env.EnvironmentName;
+
             if (!env.IsEnvironment("PROD")) {
                 app.UseSwagger();
                 app.UseSwaggerUI(options => {
@@ -56,8 +56,18 @@ namespace GovConnect.Api {
             });
 
             // Middlewares here
-            // And more
             // ...
+
+            using var scope = app
+                .ApplicationServices
+                .CreateScope();
+
+            scope.ServiceProvider
+                .GetRequiredService<ApplicationDbContext>()
+                .Database
+                .MigrateAsync()
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }
