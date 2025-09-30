@@ -4,7 +4,7 @@ namespace GovConnect.Data.Entities {
     public class RequestStatusHistory : IId {
         public long Id { get; set; }
         public long RequestId { get; set; }
-        public short StatusId { get; set; }
+        public long StatusId { get; set; }
         public long UpdatedBy { get; set; }
         public string? Note { get; set; }
         public DateTime CreatedAt { get; set; }

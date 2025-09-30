@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace GovConnect.Data {
     public class ApplicationDbContext : DbContext {
 
-        public ApplicationDbContext() {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {
             base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
@@ -68,7 +68,6 @@ namespace GovConnect.Data {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.HasDefaultSchema("Connect");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
             base.OnModelCreating(modelBuilder);
         }
