@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using GovConnect.Application;
 using GovConnect.Data;
+using GovConnect.Infrastructure.Abstractions.Caching;
+using GovConnect.Infrastructure.Caching;
 using GovConnect.Infrastructure.Mediator.Utils;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +10,7 @@ namespace GovConnect.Api {
     public static class DependencyInjection {
         public static void ConfigureConfiguration(ConfigurationManager config) {
             config
-                .AddJsonFile("appsettings.local.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
         }
 
@@ -22,16 +24,16 @@ namespace GovConnect.Api {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            services.AddDbContext<ApplicationDbContext>(options
+               => options.UseSqlServer(config.GetConnectionString("Default")));
+
             services.AddMediatorFromAssembly(typeof(MediatorAnchor).Assembly);
             services.AddValidatorsFromAssembly(typeof(MediatorAnchor).Assembly);
 
-            // Using In-Memory DB here to validate everthing in code first
-            // Before moving into an actual database that will probably be PostgreSQL
-            services.AddDbContext<ApplicationDbContext>(options
-                => options.UseInMemoryDatabase("GovConnect"));
+            services.AddSingleton<IReferenceDataCache, ReferenceDataCache>();
         }
 
-        public static void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
+        public static async void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
             if (!env.IsEnvironment("PROD")) {
                 app.UseSwagger();
                 app.UseSwaggerUI(options => {
@@ -56,8 +58,27 @@ namespace GovConnect.Api {
             });
 
             // Middlewares here
-            // And more
             // ...
+
+            await InitializeRequiredServices(app);
+        }
+
+        private static async Task InitializeRequiredServices(IApplicationBuilder app) {
+            using var scope = app
+                .ApplicationServices
+                .CreateScope();
+
+            scope.ServiceProvider
+                .GetRequiredService<ApplicationDbContext>()
+                .Database
+                .MigrateAsync()
+                .GetAwaiter()
+                .GetResult();
+
+            var dataCache = scope.ServiceProvider
+                .GetRequiredService<IReferenceDataCache>();
+
+            await dataCache.LoadAsync();
         }
     }
 }

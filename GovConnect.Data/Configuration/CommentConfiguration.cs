@@ -1,4 +1,5 @@
 ﻿using GovConnect.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GovConnect.Data.Configuration {
@@ -18,6 +19,7 @@ namespace GovConnect.Data.Configuration {
                 .HasOne(entity => entity.User)
                 .WithOne(user => user.Comment)
                 .HasForeignKey<Comment>(comment => comment.CommentedBy)
+                .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 
             base.Configure(builder);

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
+using GovConnect.Infrastructure.Abstractions.Mediator;
 using GovConnect.Infrastructure.IntegrationTests.Samples.Mediator;
-using GovConnect.Infrastructure.Mediator.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Mediatr = GovConnect.Infrastructure.Mediator.Mediator;
 

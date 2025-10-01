@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace GovConnect.Data {
     public class ApplicationDbContext : DbContext {
 
-        public ApplicationDbContext() {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {
             base.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
@@ -24,6 +24,7 @@ namespace GovConnect.Data {
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CommentAttachment> CommentAttachments { get; set; }
+        public DbSet<PriorityLevel> PriorityLevels { get; set; }
 
         public override int SaveChanges() {
             SaveChangesInternally();
@@ -68,7 +69,6 @@ namespace GovConnect.Data {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.HasDefaultSchema("Connect");
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
             base.OnModelCreating(modelBuilder);
         }

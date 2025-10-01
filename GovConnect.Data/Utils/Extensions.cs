@@ -20,7 +20,7 @@ namespace GovConnect.Data.Utils {
 
             builder
                 .Property("Id")
-                .HasDefaultValue("NEWSEQUENTIALID()");
+                .ValueGeneratedOnAdd();
 
             return builder;
         }

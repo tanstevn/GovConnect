@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using GovConnect.Infrastructure.Mediator.Abstractions;
-using GovConnect.Infrastructure.Mediator.Utils;
+using GovConnect.Infrastructure.Abstractions.Mediator;
 using GovConnect.Shared.Attributes;
 
 namespace GovConnect.Infrastructure.IntegrationTests.Samples.Mediator {
