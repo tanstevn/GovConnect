@@ -1,7 +1,10 @@
-﻿using GovConnect.Data;
-using GovConnect.Data.Entities;
+﻿using FluentValidation;
+using GovConnect.Data;
 using GovConnect.Infrastructure.Abstractions.Mediator;
+using GovConnect.Shared.Extensions;
 using GovConnect.Shared.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace GovConnect.Application.Requests.Queries {
     public class GetPaginatedRequestsQuery : PaginatedRequest<GetPaginatedRequestsQueryRow> { }
@@ -13,6 +16,19 @@ namespace GovConnect.Application.Requests.Queries {
         public DateTime CreatedAt { get; set; }
     }
 
+    public class GetPaginatedRequestsQueryRowValidator : AbstractValidator<GetPaginatedRequestsQuery> {
+        public GetPaginatedRequestsQueryRowValidator() {
+            RuleFor(prop => prop.After)
+                .Must(BeValidIsoDateTime)
+                .When(prop => !string.IsNullOrWhiteSpace(prop.After))
+                .WithMessage(prop => $"{nameof(prop.After)} must be a valid ISO DateTime format in string.");
+        }
+
+        private bool BeValidIsoDateTime(string? after) {
+            return DateTime.TryParseExact(after, "O", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+        }
+    }
+
     public class GetPaginatedRequestsQueryHandler : IRequestHandler<GetPaginatedRequestsQuery, PaginatedResult<GetPaginatedRequestsQueryRow>> {
         private readonly ApplicationDbContext _dbContext;
 
@@ -20,25 +36,39 @@ namespace GovConnect.Application.Requests.Queries {
             _dbContext = dbContext;
         }
 
-        public Task<PaginatedResult<GetPaginatedRequestsQueryRow>> HandleAsync(GetPaginatedRequestsQuery request, CancellationToken cancellationToken = default) {
-            var isDescending = request.SortDirection is SortDirection.Descending;
+        public async Task<PaginatedResult<GetPaginatedRequestsQueryRow>> HandleAsync(GetPaginatedRequestsQuery request, CancellationToken cancellationToken = default) {
+            var query = _dbContext
+                .Requests
+                .Select(req => new GetPaginatedRequestsQueryRow {
+                    Id = req.Id,
+                    Title = req.Title,
+                    Description = req.Description,
+                    CreatedAt = req.CreatedAt
+                });
 
-            if (string.IsNullOrWhiteSpace(request.SortBy)) {
-                isDescending = true;
-                request.SortBy = nameof(Request.CreatedAt);
+            if (!string.IsNullOrWhiteSpace(request.SearchValue)) {
+                var wildcardSearch = $"%{request.SearchValue}%";
+
+                query = query.Where(req =>
+                    EF.Functions.Like(req.Title, wildcardSearch) ||
+                    EF.Functions.Like(req.Description, wildcardSearch));
             }
 
-            //var query = dbContext
-            //    .Requests
-            //    .Select(request => new GetPaginatedRequestsQueryRow {
-            //        Id = request.Id,
-            //        Title = request.Title,
-            //        Description = request.Description,
-            //        CreatedAt = request.CreatedAt
-            //    })
-            //    .OrderBy(request => request.)
+            var isDescending = request.SortDirection == SortDirection.Descending;
 
-            return default;
+            if (!string.IsNullOrWhiteSpace(request.After)) {
+                _ = DateTime.TryParse(request.After, out var afterDate);
+
+                query = isDescending
+                    ? query.Where(req => req.CreatedAt < afterDate)
+                    : query.Where(req => req.CreatedAt > afterDate);
+            }
+
+            var finalQuery = isDescending
+                ? query.OrderByDescending(req => req.CreatedAt)
+                : query.OrderBy(req => req.CreatedAt);
+
+            return await finalQuery.PaginateAsync(request.TakeSize, isDescending, item => item.CreatedAt);
         }
     }
 }

@@ -2,7 +2,8 @@
 
 namespace GovConnect.Shared.Models {
     public class PaginatedRequest<TResponse> : IQuery<PaginatedResult<TResponse>> {
-        public long? After { get; set; }
+        public string? After { get; set; }
+        public int TakeSize { get; set; } = 10;
         public string? SortBy { get; set; }
         public SortDirection? SortDirection { get; set; }
         public string? SearchValue { get; set; }

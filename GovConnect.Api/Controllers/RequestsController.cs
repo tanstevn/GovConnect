@@ -14,8 +14,8 @@ namespace GovConnect.Api.Controllers {
         }
 
         [HttpPost]
-        public async Task<Result<RequestCommandResult>> CreateRequest([FromBody] RequestCommand command) {
-            return await _mediator.SendAsync(command);
+        public async Task<Result<RequestCommandResult>> CreateRequest([FromBody] RequestCommand command, CancellationToken cancellationToken) {
+            return await _mediator.SendAsync(command, cancellationToken);
         }
     }
 }
