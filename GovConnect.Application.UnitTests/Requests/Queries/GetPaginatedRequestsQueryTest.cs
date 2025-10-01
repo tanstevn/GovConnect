@@ -1,5 +1,6 @@
 ﻿using GovConnect.Application.Requests.Queries;
 using GovConnect.Shared.Models;
+using GovConnect.Shared.Pagination;
 
 namespace GovConnect.Application.IntegrationTests.Requests.Queries {
     public class GetPaginatedRequestsQueryTest : BaseIntegTest {
@@ -56,8 +57,12 @@ namespace GovConnect.Application.IntegrationTests.Requests.Queries {
             Assert.True(result.Data is not null);
             Assert.True(result.ResultsCount == 3);
             Assert.True(result.NextCursor is not null);
-            Assert.Equal(new DateTime(2025, 01, 03).ToString("O"), result.NextCursor);
             Assert.Equal(3, result.Data.FirstOrDefault()?.Id);
+
+            var decodedNextCursor = CursorEncoder.Decode(result.NextCursor);
+            _ = DateTime.TryParse(decodedNextCursor, out var nextCursor);
+
+            Assert.Equal(new DateTime(2025, 01, 03), nextCursor);
         }
 
         [Fact]
@@ -76,8 +81,12 @@ namespace GovConnect.Application.IntegrationTests.Requests.Queries {
             Assert.True(result.Data is not null);
             Assert.True(result.ResultsCount == 1);
             Assert.True(result.NextCursor is not null);
-            Assert.Equal(new DateTime(2025, 01, 02).ToString("O"), result.NextCursor);
             Assert.Equal(2, result.Data.FirstOrDefault()?.Id);
+
+            var decodedNextCursor = CursorEncoder.Decode(result.NextCursor);
+            _ = DateTime.TryParse(decodedNextCursor, out var nextCursor);
+
+            Assert.Equal(new DateTime(2025, 01, 02), nextCursor);
         }
 
         [Fact]
@@ -97,8 +106,12 @@ namespace GovConnect.Application.IntegrationTests.Requests.Queries {
             Assert.True(result.Data is not null);
             Assert.True(result.ResultsCount == 1);
             Assert.True(result.NextCursor is not null);
-            Assert.Equal(new DateTime(2025, 01, 03).ToString("O"), result.NextCursor);
             Assert.Equal(3, result.Data.FirstOrDefault()?.Id);
+
+            var decodedNextCursor = CursorEncoder.Decode(result.NextCursor);
+            _ = DateTime.TryParse(decodedNextCursor, out var nextCursor);
+
+            Assert.Equal(new DateTime(2025, 01, 03), nextCursor);
         }
     }
 }

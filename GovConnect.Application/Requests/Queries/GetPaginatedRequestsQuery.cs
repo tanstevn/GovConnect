@@ -3,6 +3,7 @@ using GovConnect.Data;
 using GovConnect.Infrastructure.Abstractions.Mediator;
 using GovConnect.Shared.Extensions;
 using GovConnect.Shared.Models;
+using GovConnect.Shared.Pagination;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
@@ -47,7 +48,7 @@ namespace GovConnect.Application.Requests.Queries {
                 });
 
             if (!string.IsNullOrWhiteSpace(request.SearchValue)) {
-                var wildcardSearch = $"%{request.SearchValue}%";
+                    var wildcardSearch = $"%{request.SearchValue}%";
 
                 query = query.Where(req =>
                     EF.Functions.Like(req.Title, wildcardSearch) ||
@@ -57,7 +58,8 @@ namespace GovConnect.Application.Requests.Queries {
             var isDescending = request.SortDirection == SortDirection.Descending;
 
             if (!string.IsNullOrWhiteSpace(request.After)) {
-                _ = DateTime.TryParse(request.After, out var afterDate);
+                var decodedAfter = CursorEncoder.Decode(request.After);
+                _ = DateTime.TryParse(decodedAfter, out var afterDate);
 
                 query = isDescending
                     ? query.Where(req => req.CreatedAt < afterDate)

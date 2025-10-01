@@ -1,4 +1,5 @@
 ﻿using GovConnect.Shared.Models;
+using GovConnect.Shared.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace GovConnect.Shared.Extensions {
@@ -13,7 +14,7 @@ namespace GovConnect.Shared.Extensions {
                 : results.Last();
 
             var nextCursor = results.Count > 0 
-                ? cursor(cursorItem).ToString("O")
+                ? CursorEncoder.Encode(cursor(cursorItem).ToString("O"))
                 : null;
 
             var paginationResult = new PaginatedResult<TQuery> {
