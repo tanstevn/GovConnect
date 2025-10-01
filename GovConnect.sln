@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovConnect.Infrastructure.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovConnect.Infrastructure.Abstractions", "GovConnect.Infrastructure.Abstractions\GovConnect.Infrastructure.Abstractions.csproj", "{5D367638-C663-47D6-831D-B220C9C1F1F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovConnect.Application.IntegrationTests", "GovConnect.Application.UnitTests\GovConnect.Application.IntegrationTests.csproj", "{AFD0A9E5-2497-4A22-987A-F1BC8A4799C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,12 +55,17 @@ Global
 		{5D367638-C663-47D6-831D-B220C9C1F1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D367638-C663-47D6-831D-B220C9C1F1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D367638-C663-47D6-831D-B220C9C1F1F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD0A9E5-2497-4A22-987A-F1BC8A4799C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD0A9E5-2497-4A22-987A-F1BC8A4799C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD0A9E5-2497-4A22-987A-F1BC8A4799C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD0A9E5-2497-4A22-987A-F1BC8A4799C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FF29407E-4CBE-49A1-8103-309DB2996985} = {F0FA9213-B7CA-4395-9258-1D25B139EAED}
+		{AFD0A9E5-2497-4A22-987A-F1BC8A4799C2} = {F0FA9213-B7CA-4395-9258-1D25B139EAED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8DB982BE-6929-4F34-AC69-FC375767C0B9}
