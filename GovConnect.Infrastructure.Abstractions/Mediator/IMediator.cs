@@ -1,4 +1,4 @@
-﻿namespace GovConnect.Infrastructure.Mediator.Abstractions {
+﻿namespace GovConnect.Infrastructure.Abstractions.Mediator {
     public interface IMediator {
         Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = default);
     }

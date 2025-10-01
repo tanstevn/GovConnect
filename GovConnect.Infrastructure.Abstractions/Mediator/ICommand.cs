@@ -1,3 +1,3 @@
-﻿namespace GovConnect.Infrastructure.Mediator.Abstractions {
+﻿namespace GovConnect.Infrastructure.Abstractions.Mediator {
     public interface ICommand<out TResponse> : IRequest<TResponse> { }
 }

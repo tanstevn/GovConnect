@@ -1,4 +1,5 @@
 ﻿using GovConnect.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GovConnect.Data.Configuration {
@@ -22,6 +23,19 @@ namespace GovConnect.Data.Configuration {
                 .HasOne(entity => entity.Barangay)
                 .WithMany(barangay => barangay.Requests)
                 .HasForeignKey(request => request.BarangayId)
+                .IsRequired();
+
+            builder
+                .HasOne(entity => entity.User)
+                .WithMany(user => user.Requests)
+                .HasForeignKey(request => request.RequestedByUserId)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired();
+
+            builder
+                .HasOne(entity => entity.PriorityLevel)
+                .WithOne(priorityLevel => priorityLevel.Request)
+                .HasForeignKey<Request>(request => request.PriorityLevelId)
                 .IsRequired();
 
             builder

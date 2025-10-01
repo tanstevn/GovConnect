@@ -1,5 +1,4 @@
-﻿using GovConnect.Infrastructure.Mediator.Abstractions;
-using GovConnect.Infrastructure.Mediator.Utils;
+﻿using GovConnect.Infrastructure.Abstractions.Mediator;
 using GovConnect.Shared.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -7,9 +6,11 @@ using System.Reflection;
 namespace GovConnect.Infrastructure.Mediator {
     internal sealed class Executor<TRequest, TResponse> : IExecutor
         where TRequest : IRequest<TResponse> {
-        public async Task<object> ExecuteAsync(object request, Type responseType, IServiceProvider serviceProvider, CancellationToken cancellationToken) {
+        public async Task<object> ExecuteAsync(object request, IServiceProvider serviceProvider, CancellationToken cancellationToken) {
             var requestHandler = serviceProvider
                 .GetRequiredService<IRequestHandler<TRequest, TResponse>>();
+
+            ArgumentNullException.ThrowIfNull(requestHandler);
 
             RequestHandlerDelegate<TResponse> lastHandler = (token)
                 => requestHandler.HandleAsync((TRequest)request, token);

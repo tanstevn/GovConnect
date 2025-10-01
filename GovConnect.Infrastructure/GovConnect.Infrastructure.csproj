@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GovConnect.Data\GovConnect.Data.csproj" />
     <ProjectReference Include="..\GovConnect.Shared\GovConnect.Shared.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,8 @@
-﻿using GovConnect.Infrastructure.Mediator.Abstractions;
+﻿using GovConnect.Infrastructure.Abstractions.Mediator;
 using System.Collections.Concurrent;
 
 namespace GovConnect.Infrastructure.Mediator {
-    public class Mediator : IMediator {
+    public sealed class Mediator : IMediator {
         private readonly IServiceProvider _serviceProvider;
         private readonly ConcurrentDictionary<Type, IExecutor> _requestHandlers;
 
@@ -25,7 +25,7 @@ namespace GovConnect.Infrastructure.Mediator {
                     });
 
             var result = await requestHandler
-                .ExecuteAsync(request, typeof(TResponse), _serviceProvider, cancellationToken);
+                .ExecuteAsync(request, _serviceProvider, cancellationToken);
 
             return (TResponse)result;
         }
