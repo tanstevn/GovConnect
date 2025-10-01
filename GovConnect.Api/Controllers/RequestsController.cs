@@ -1,4 +1,5 @@
 ﻿using GovConnect.Application.Requests.Commands;
+using GovConnect.Application.Requests.Queries;
 using GovConnect.Infrastructure.Abstractions.Mediator;
 using GovConnect.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +17,11 @@ namespace GovConnect.Api.Controllers {
         [HttpPost]
         public async Task<Result<RequestCommandResult>> CreateRequest([FromBody] RequestCommand command, CancellationToken cancellationToken) {
             return await _mediator.SendAsync(command, cancellationToken);
+        }
+
+        [HttpGet]
+        public async Task<PaginatedResult<GetPaginatedRequestsQueryRow>> GetAllRequests([FromQuery] GetPaginatedRequestsQuery query, CancellationToken cancellationToken) {
+            return await _mediator.SendAsync(query, cancellationToken);
         }
     }
 }

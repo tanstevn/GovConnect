@@ -5,7 +5,6 @@ using GovConnect.Shared.Extensions;
 using GovConnect.Shared.Models;
 using GovConnect.Shared.Pagination;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
 
 namespace GovConnect.Application.Requests.Queries {
     public class GetPaginatedRequestsQuery : PaginatedRequest<GetPaginatedRequestsQueryRow> { }
