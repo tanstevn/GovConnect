@@ -1,5 +1,4 @@
-﻿using GovConnect.Application.Utils;
-using GovConnect.Data;
+﻿using GovConnect.Data;
 using GovConnect.Data.Entities;
 using GovConnect.Infrastructure.Abstractions.Mediator;
 using GovConnect.Shared.Models;
@@ -14,7 +13,13 @@ namespace GovConnect.Application.Requests.Queries {
         public DateTime CreatedAt { get; set; }
     }
 
-    public class GetPaginatedRequestsQueryHandler(ApplicationDbContext dbContext) : IRequestHandler<GetPaginatedRequestsQuery, PaginatedResult<GetPaginatedRequestsQueryRow>> {
+    public class GetPaginatedRequestsQueryHandler : IRequestHandler<GetPaginatedRequestsQuery, PaginatedResult<GetPaginatedRequestsQueryRow>> {
+        private readonly ApplicationDbContext _dbContext;
+
+        public GetPaginatedRequestsQueryHandler(ApplicationDbContext dbContext) {
+            _dbContext = dbContext;
+        }
+
         public Task<PaginatedResult<GetPaginatedRequestsQueryRow>> HandleAsync(GetPaginatedRequestsQuery request, CancellationToken cancellationToken = default) {
             var isDescending = request.SortDirection is SortDirection.Descending;
 

@@ -63,9 +63,15 @@ namespace GovConnect.Application.Requests.Commands {
         }
     }
 
-    public class RequestCommandHandler(ApplicationDbContext dbContext) : IRequestHandler<RequestCommand, Result<RequestCommandResult>> {
+    public class RequestCommandHandler : IRequestHandler<RequestCommand, Result<RequestCommandResult>> {
+        private readonly ApplicationDbContext _dbContext;
+
+        public RequestCommandHandler(ApplicationDbContext dbContext) {
+            _dbContext = dbContext;
+        }
+
         public async Task<Result<RequestCommandResult>> HandleAsync(RequestCommand request, CancellationToken cancellationToken = default) {
-            request.RequestedByUserId ??= await dbContext
+            request.RequestedByUserId ??= await _dbContext
                 .Users
                 .Where(user => user.Auth0UserId == "auth0|anonymous")
                 .Select(user => user.Id)
@@ -81,8 +87,8 @@ namespace GovConnect.Application.Requests.Commands {
                 CreatedAt = DateTime.UtcNow
             };
 
-            await dbContext.Requests.AddAsync(requestEntity, cancellationToken);
-            await dbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.Requests.AddAsync(requestEntity, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return new() {
                 Data = new() {

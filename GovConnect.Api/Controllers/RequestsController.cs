@@ -6,10 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace GovConnect.Api.Controllers {
     [Route("api/[controller]")]
     [ApiController]
-    public class RequestsController(IMediator mediator) : ControllerBase {
+    public class RequestsController : ControllerBase {
+        private readonly IMediator _mediator;
+
+        public RequestsController(IMediator mediator) {
+            _mediator = mediator;
+        }
+
         [HttpPost]
         public async Task<Result<RequestCommandResult>> CreateRequest([FromBody] RequestCommand command) {
-            return await mediator.SendAsync(command);
+            return await _mediator.SendAsync(command);
         }
     }
 }
