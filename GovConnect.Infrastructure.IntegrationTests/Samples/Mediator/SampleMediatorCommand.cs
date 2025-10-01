@@ -7,7 +7,7 @@ namespace GovConnect.Infrastructure.IntegrationTests.Samples.Mediator {
     }
 
     public class SampleMediatorCommandResult {
-        public required string Message { get; set; }
+        public string Message { get; set; }
     }
 
     public class SampleMediatorCommandValidator : AbstractValidator<SampleMediatorCommand> {

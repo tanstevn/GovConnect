@@ -19,7 +19,7 @@ namespace GovConnect.Application.Requests.Commands {
     }
 
     public class RequestCommandResult {
-        public required long Id { get; set; }
+        public long Id { get; set; }
     }
 
     public class RequestCommandValidator : AbstractValidator<RequestCommand> {
