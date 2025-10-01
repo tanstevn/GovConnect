@@ -26,7 +26,8 @@ namespace GovConnect.Application.Requests.Queries {
         }
 
         private bool BeValidIsoDateTime(string? after) {
-            return DateTime.TryParseExact(after, "O", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+            var decodedAfter = CursorEncoder.Decode(after ?? string.Empty);
+            return DateTime.TryParse(decodedAfter, out _);
         }
     }
 
