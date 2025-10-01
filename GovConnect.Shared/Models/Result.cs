@@ -73,11 +73,8 @@ namespace GovConnect.Shared.Models {
     /// </summary>s
     /// <typeparam name="TData">Data to return</typeparam>
     public class PaginatedResult<TData> : Result<TData> {
-        public int PageNumber { get; set; }
-        public int ItemsPerPage { get; set; }
+        public string? NextCursor { get; init; }
         public int ResultsCount { get; set; }
-        public int TotalResultsCount { get; set; }
-        public int TotalPages { get; set; }
         public new IEnumerable<TData>? Data { get; set; }
         public static PaginatedResult<TData> Success(IEnumerable<TData> data) {
             return new() {
