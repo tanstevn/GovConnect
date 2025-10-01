@@ -1,4 +1,4 @@
-﻿using GovConnect.Infrastructure.Mediator.Abstractions;
+﻿using GovConnect.Infrastructure.Abstractions.Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -11,7 +11,7 @@ namespace GovConnect.Infrastructure.Mediator.Utils {
 
             var assemblyTypes = assembly.GetTypes();
 
-            services.AddSingleton<IMediator, Mediator>();
+            services.AddScoped<IMediator, Mediator>();
             services.RegisterRequestHandlers(assemblyTypes);
             services.RegisterPipelineBehaviors(assemblyTypes);
         }

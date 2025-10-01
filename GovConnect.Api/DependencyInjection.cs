@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using GovConnect.Application;
 using GovConnect.Data;
+using GovConnect.Infrastructure.Abstractions.Caching;
+using GovConnect.Infrastructure.Caching;
 using GovConnect.Infrastructure.Mediator.Utils;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,16 +24,16 @@ namespace GovConnect.Api {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            services.AddDbContext<ApplicationDbContext>(options
+               => options.UseSqlServer(config.GetConnectionString("Default")));
+
             services.AddMediatorFromAssembly(typeof(MediatorAnchor).Assembly);
             services.AddValidatorsFromAssembly(typeof(MediatorAnchor).Assembly);
 
-            services.AddDbContext<ApplicationDbContext>(options
-                => options.UseSqlServer(config.GetConnectionString("Default")));
+            services.AddSingleton<IReferenceDataCache, ReferenceDataCache>();
         }
 
-        public static void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
-            var test = env.EnvironmentName;
-
+        public static async void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
             if (!env.IsEnvironment("PROD")) {
                 app.UseSwagger();
                 app.UseSwaggerUI(options => {
@@ -58,6 +60,10 @@ namespace GovConnect.Api {
             // Middlewares here
             // ...
 
+            await InitializeRequiredServices(app);
+        }
+
+        private static async Task InitializeRequiredServices(IApplicationBuilder app) {
             using var scope = app
                 .ApplicationServices
                 .CreateScope();
@@ -68,6 +74,11 @@ namespace GovConnect.Api {
                 .MigrateAsync()
                 .GetAwaiter()
                 .GetResult();
+
+            var dataCache = scope.ServiceProvider
+                .GetRequiredService<IReferenceDataCache>();
+
+            await dataCache.LoadAsync();
         }
     }
 }

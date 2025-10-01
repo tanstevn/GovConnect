@@ -25,6 +25,10 @@ namespace GovConnect.Data.Configuration {
                 .IsRequired();
 
             builder
+                .HasMany(entity => entity.Requests)
+                .WithOne(request => request.User);
+
+            builder
                 .HasOne(entity => entity.RequestStatusHistory)
                 .WithOne(history => history.User);
 

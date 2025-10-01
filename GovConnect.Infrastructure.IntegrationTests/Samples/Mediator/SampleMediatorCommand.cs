@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using GovConnect.Infrastructure.Mediator.Abstractions;
-using System.Net;
+using GovConnect.Infrastructure.Abstractions.Mediator;
 
 namespace GovConnect.Infrastructure.IntegrationTests.Samples.Mediator {
     public class SampleMediatorCommand : ICommand<SampleMediatorCommandResult> {

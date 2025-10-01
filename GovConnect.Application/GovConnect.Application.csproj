@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Auth\Commands\" />
+    <Folder Include="Lookups\Queries\" />
+    <Folder Include="Users\Commands\" />
+    <Folder Include="Users\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GovConnect.Data\GovConnect.Data.csproj" />
+    <ProjectReference Include="..\GovConnect.Infrastructure\GovConnect.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

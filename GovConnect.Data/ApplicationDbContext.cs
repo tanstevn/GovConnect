@@ -24,6 +24,7 @@ namespace GovConnect.Data {
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CommentAttachment> CommentAttachments { get; set; }
+        public DbSet<PriorityLevel> PriorityLevels { get; set; }
 
         public override int SaveChanges() {
             SaveChangesInternally();

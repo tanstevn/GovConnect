@@ -12,6 +12,7 @@ namespace GovConnect.Data.Entities {
 
         public virtual Role? Role { get; set; }
         public virtual UserDetails? UserDetails { get; set; }
+        public virtual ICollection<Request>? Requests { get; set; }
         public virtual RequestStatusHistory? RequestStatusHistory { get; set; }
         public virtual Comment? Comment { get; set; }
     }

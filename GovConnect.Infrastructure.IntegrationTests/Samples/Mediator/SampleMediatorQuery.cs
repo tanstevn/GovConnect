@@ -1,4 +1,4 @@
-﻿using GovConnect.Infrastructure.Mediator.Abstractions;
+﻿using GovConnect.Infrastructure.Abstractions.Mediator;
 
 namespace GovConnect.Infrastructure.IntegrationTests.Samples.Mediator {
     public class SampleMediatorQuery : IQuery<SampleMediatorQueryResult> { }
