@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovConnect.Infrastructure.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovConnect.Infrastructure.Abstractions", "GovConnect.Infrastructure.Abstractions\GovConnect.Infrastructure.Abstractions.csproj", "{5D367638-C663-47D6-831D-B220C9C1F1F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovConnect.Application.IntegrationTests", "GovConnect.Application.UnitTests\GovConnect.Application.IntegrationTests.csproj", "{AFD0A9E5-2497-4A22-987A-F1BC8A4799C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GovConnect.Application.IntegrationTests", "GovConnect.Application.IntegrationTests\GovConnect.Application.IntegrationTests.csproj", "{AFD0A9E5-2497-4A22-987A-F1BC8A4799C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
