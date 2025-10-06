@@ -2,7 +2,8 @@
 
 namespace GovConnect.Data.Entities {
     public class User : IId, ISoftDelete {
-        public string UserId { get; set; }
+        public long Id { get; set; }
+        public string Auth0dUserId { get; set; }
         public long RoleId { get; set; }
         public long UserDetailId { get; set; }
         public DateTime CreatedAt { get; set; }
