@@ -17,11 +17,6 @@ namespace GovConnect.Data.Utils {
 
         public static EntityTypeBuilder<TEntity> ConfigureId<TEntity>(this EntityTypeBuilder<TEntity> builder)
             where TEntity : class {
-            if (typeof(TEntity) == typeof(User)) {
-                builder.HasKey("UserId");
-                return builder;
-            }
-                
             builder.HasKey("Id");
                 
             builder
