@@ -6,11 +6,8 @@ namespace GovConnect.Data.Configuration {
     public class BaseConfiguration<TEntity> : IEntityTypeConfiguration<TEntity>
         where TEntity : class {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder) {
-            var interfaces = (builder
-                    .GetType()
-                    .GetGenericArguments()
-                    .FirstOrDefault()?
-                    .GetInterfaces() ?? Enumerable.Empty<Type>())
+            var interfaces = typeof(TEntity)
+                .GetInterfaces()
                 .ToList();
 
             builder
