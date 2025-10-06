@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GovConnect.Data.Utils {
     public static class Extensions {
-        public static EntityTypeBuilder<TEntity> ConfigureSoftDelete<TEntity>(this EntityTypeBuilder<TEntity> builder, IEnumerable<Type> types)
+        public static EntityTypeBuilder<TEntity> ConfigureSoftDelete<TEntity>(this EntityTypeBuilder<TEntity> builder)
             where TEntity: class {
-            if (!types.Contains(typeof(ISoftDelete))) {
+            if (!typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity))) {
                 return builder;
             }
 
@@ -14,7 +14,7 @@ namespace GovConnect.Data.Utils {
             return builder;
         }
 
-        public static EntityTypeBuilder<TEntity> ConfigureId<TEntity>(this EntityTypeBuilder<TEntity> builder, IEnumerable<Type> types)
+        public static EntityTypeBuilder<TEntity> ConfigureId<TEntity>(this EntityTypeBuilder<TEntity> builder)
             where TEntity : class {
             builder.HasKey("Id");
 
