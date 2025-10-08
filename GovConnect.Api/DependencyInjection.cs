@@ -30,7 +30,7 @@ namespace GovConnect.Api {
             services.AddMediatorFromAssembly(typeof(MediatorAnchor).Assembly);
             services.AddValidatorsFromAssembly(typeof(MediatorAnchor).Assembly);
 
-            services.AddSingleton<IReferenceDataCache, ReferenceDataCache>();
+            services.AddScoped<IReferenceDataCache, ReferenceDataCache>();
         }
 
         public static void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
