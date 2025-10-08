@@ -33,7 +33,7 @@ namespace GovConnect.Api {
             services.AddSingleton<IReferenceDataCache, ReferenceDataCache>();
         }
 
-        public static async void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
+        public static void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
             if (!env.IsEnvironment("PROD")) {
                 app.UseSwagger();
                 app.UseSwaggerUI(options => {
@@ -60,10 +60,10 @@ namespace GovConnect.Api {
             // Middlewares here
             // ...
 
-            await InitializeRequiredServices(app);
+            InitializeRequiredServices(app);
         }
 
-        private static async Task InitializeRequiredServices(IApplicationBuilder app) {
+        private static void InitializeRequiredServices(IApplicationBuilder app) {
             using var scope = app
                 .ApplicationServices
                 .CreateScope();
@@ -75,10 +75,11 @@ namespace GovConnect.Api {
                 .GetAwaiter()
                 .GetResult();
 
-            var dataCache = scope.ServiceProvider
-                .GetRequiredService<IReferenceDataCache>();
-
-            await dataCache.LoadAsync();
+            scope.ServiceProvider
+                .GetRequiredService<IReferenceDataCache>()
+                .LoadAsync()
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }
