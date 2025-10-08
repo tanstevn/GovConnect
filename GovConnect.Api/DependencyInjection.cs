@@ -49,7 +49,7 @@ namespace GovConnect.Api {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
                 endpoints.MapFallback(context => {
-                    context.Response.StatusCode = StatusCodes.Status405MethodNotAllowed;
+                    context.Response.StatusCode = StatusCodes.Status404NotFound;
 
                     return context
                         .Response
