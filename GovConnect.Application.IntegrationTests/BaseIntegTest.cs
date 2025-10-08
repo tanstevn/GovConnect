@@ -6,8 +6,12 @@ namespace GovConnect.Application.IntegrationTests {
         protected ApplicationDbContext DbContext { get; private set; }
 
         protected BaseIntegTest() {
+            var databaseName = Guid
+                .NewGuid()
+                .ToString();
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .UseInMemoryDatabase(databaseName)
                 .Options;
 
             DbContext = new ApplicationDbContext(options);

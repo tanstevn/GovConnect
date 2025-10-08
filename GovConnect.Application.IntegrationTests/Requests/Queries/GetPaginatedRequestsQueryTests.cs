@@ -3,39 +3,39 @@ using GovConnect.Shared.Models;
 using GovConnect.Shared.Pagination;
 
 namespace GovConnect.Application.IntegrationTests.Requests.Queries {
-    public class GetPaginatedRequestsQueryTest : BaseIntegTest {
-        public GetPaginatedRequestsQueryTest() : base() {
+    public class GetPaginatedRequestsQueryTests : BaseIntegTest {
+        public GetPaginatedRequestsQueryTests() : base() {
             DbContext.Requests.AddRange([
                 new() {
-                    Id = 1,
-                    Title = "Title 1",
-                    Description = "Description 1",
-                    SubcategoryId = 1,
-                    BarangayId = 1,
-                    RequestedByUserId = 1,
-                    PriorityLevelId = 3,
-                    CreatedAt = new DateTime(2025, 01, 01)
-                },
-                new() {
-                    Id = 2,
-                    Title = "Title 2",
-                    Description = "Description 2",
-                    SubcategoryId = 1,
-                    BarangayId = 1,
-                    RequestedByUserId = 1,
-                    PriorityLevelId = 3,
-                    CreatedAt = new DateTime(2025, 01, 02)
-                },
-                new() {
-                    Id = 3,
-                    Title = "Title 3",
-                    Description = "Description 3",
-                    SubcategoryId = 1,
-                    BarangayId = 1,
-                    RequestedByUserId = 1,
-                    PriorityLevelId = 3,
-                    CreatedAt = new DateTime(2025, 01, 03)
-                }
+                Id = 1,
+                Title = "Title 1",
+                Description = "Description 1",
+                SubcategoryId = 1,
+                BarangayId = 1,
+                RequestedByUserId = 1,
+                PriorityLevelId = 3,
+                CreatedAt = new DateTime(2025, 01, 01)
+            },
+            new() {
+                Id = 2,
+                Title = "Title 2",
+                Description = "Description 2",
+                SubcategoryId = 1,
+                BarangayId = 1,
+                RequestedByUserId = 1,
+                PriorityLevelId = 3,
+                CreatedAt = new DateTime(2025, 01, 02)
+            },
+            new() {
+                Id = 3,
+                Title = "Title 3",
+                Description = "Description 3",
+                SubcategoryId = 1,
+                BarangayId = 1,
+                RequestedByUserId = 1,
+                PriorityLevelId = 3,
+                CreatedAt = new DateTime(2025, 01, 03)
+            }
             ]);
 
             DbContext.SaveChanges();
