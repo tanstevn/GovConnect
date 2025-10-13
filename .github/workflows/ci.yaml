@@ -41,7 +41,7 @@ jobs:
       # Add Gitleaks Installation
       # And Gitleaks Code Scan here
 
-  integration-test:
+  tests:
     runs-on: ubuntu-latest
     needs: security-check
     steps:
@@ -58,5 +58,6 @@ jobs:
     - name: Build Solution
       run: dotnet build --no-restore
       
-    - name: Run Integration Tests
-      run: dotnet test --filter "Trait=Category=Integration"
+    - name: Run Tests
+      run: dotnet test --no-build --no-restore
+    
