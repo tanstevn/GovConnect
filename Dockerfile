@@ -1,14 +1,13 @@
 # The stage that serves as the base of the image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8080
 EXPOSE 8081
 
 # The stage that compile or build the project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 ARG BUILD_CONFIG=Release
 WORKDIR /src
-COPY ["GovConnect.Api\GovConnect.Api.csproj", "GovConnect.Api/"]
+COPY ["GovConnect.Api/GovConnect.Api.csproj", "GovConnect.Api/"]
 RUN dotnet restore "./GovConnect.Api/GovConnect.Api.csproj"
 COPY . . 
 WORKDIR "/src/GovConnect.Api"

@@ -3,6 +3,9 @@ name: CI Pipeline
 on:
     pull_request:
         branches: [main, develop]
+    push:
+        branches: [main, develop]
+    workflow_dispatch:
         
 jobs:
     build:
@@ -13,16 +16,17 @@ jobs:
             - name: Checkout Code
               uses: actions/checkout@v4
 
-            - name: Setup .NET Application
+            - name: Setup .NET Core SDK
               uses: actions/setup-dotnet@v4
               with:
-                dotnet-version: '8.*'
+                dotnet-version: '8.0'
 
-            - name: Restore Dependencies
-              uses: dotnet restore
-
-            - name: Build Solution
-              uses: dotnet build --no-restore --configuration Release
+            - name: Restore Dependencies and Build Solution
+              run: |
+                dotnet restore GovConnect.sln
+                dotnet build GovConnect.sln --configuration Release
 
             - name: Run Tests
-              uses: dotnet test --no-build --configuration Release
+              run: |
+                dotnet test ./GovConnect.Application.IntegrationTests/GovConnect.Application.IntegrationTests.csproj --no-build --verbosity normal
+                dotnet test ./GovConnect.Infrastructure.IntegrationTests/GovConnect.Infrastructure.IntegrationTests.csproj --no-build --verbosity normal
