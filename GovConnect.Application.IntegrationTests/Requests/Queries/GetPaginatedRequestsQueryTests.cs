@@ -1,6 +1,7 @@
 ﻿using GovConnect.Application.Requests.Queries;
 using GovConnect.Shared.Models;
 using GovConnect.Shared.Pagination;
+using Xunit;
 
 namespace GovConnect.Application.IntegrationTests.Requests.Queries {
     public class GetPaginatedRequestsQueryTests : BaseIntegTest {
@@ -42,6 +43,7 @@ namespace GovConnect.Application.IntegrationTests.Requests.Queries {
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async void GetPaginatedRequestsQuery_Runs_Successfully() {
             // Arrange
             var requestHandler = new GetPaginatedRequestsQueryHandler(DbContext);
@@ -66,6 +68,7 @@ namespace GovConnect.Application.IntegrationTests.Requests.Queries {
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async void GetPaginatedRequestsQuery_With_SearchValue_Runs_Successfully() {
             // Arrange
             var requestHandler = new GetPaginatedRequestsQueryHandler(DbContext);
@@ -90,6 +93,7 @@ namespace GovConnect.Application.IntegrationTests.Requests.Queries {
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async void GetPaginatedRequestsQuery_With_SortBy_Runs_Successfully() {
             // Arrange
             var requestHandler = new GetPaginatedRequestsQueryHandler(DbContext);
