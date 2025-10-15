@@ -8,7 +8,8 @@ jobs:
   compile:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
     
     - name: Setup .NET Application
       uses: actions/setup-dotnet@v4
@@ -21,11 +22,27 @@ jobs:
     - name: Build Solution
       run: dotnet build --no-restore
 
-  security-check:
+  tests:
     runs-on: ubuntu-latest
     needs: compile
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET Application
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+      
+    - name: Run Tests
+      run: dotnet test --no-build --no-restore
+          
+  security-analysis:
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
     
     - name: Trivy Installation
       run: |
@@ -35,29 +52,36 @@ jobs:
         sudo apt-get update -y
         sudo apt-get install trivy -y
 
-    - name: Trivy Scan
+    - name: Run Trivy FileSystem Scan
       run: trivy fs --format table -o fs-report.json .
 
       # Add Gitleaks Installation
       # And Gitleaks Code Scan here
-
-  tests:
-    runs-on: ubuntu-latest
-    needs: security-check
-    steps:
-    - uses: actions/checkout@v4
     
+  container-artifacts:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
     - name: Setup .NET Application
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-        
+
     - name: Restore Dependencies
       run: dotnet restore
-      
+
     - name: Build Solution
       run: dotnet build --no-restore
-      
-    - name: Run Tests
-      run: dotnet test --no-build --no-restore
+
+    - name: Pack Web API project
+      run: dotnet pack --configuration Release --output ./artifacts
+
+    - name: Add GitHub Packages Source
+      run: dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --name "github"
+
+    - name: Push Package to GitHub Packages
+      run: dotnet nuget push ./artifacts/*.nupkg --source "github" --api-key "${{ secrets.GITHUB_TOKEN }}"
     
