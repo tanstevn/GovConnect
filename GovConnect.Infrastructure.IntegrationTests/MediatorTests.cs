@@ -3,6 +3,7 @@ using GovConnect.Infrastructure.Abstractions.Mediator;
 using GovConnect.Infrastructure.IntegrationTests.Samples.Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using Mediatr = GovConnect.Infrastructure.Mediator.Mediator;
+using Xunit;
 
 namespace GovConnect.Infrastructure.IntegrationTests {
     public class MediatorTests {
@@ -28,6 +29,7 @@ namespace GovConnect.Infrastructure.IntegrationTests {
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async void Mediator_Request_Query_Runs_Successfully() {
             // Arrange
             var request = new SampleMediatorQuery();
@@ -40,6 +42,7 @@ namespace GovConnect.Infrastructure.IntegrationTests {
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async void Mediator_Request_Command_Runs_Successfully() {
             // Arrange
             var request = new SampleMediatorCommand {
@@ -59,6 +62,7 @@ namespace GovConnect.Infrastructure.IntegrationTests {
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async void Mediator_Request_Command_Failed_Validation_With_Negative_Value_Runs_Successfully() {
             // Arrange
             var request = new SampleMediatorCommand {
@@ -78,6 +82,7 @@ namespace GovConnect.Infrastructure.IntegrationTests {
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async void Mediator_Request_Command_Failed_Validation_With_Default_Value_Runs_Successfully() {
             // Arrange
             var request = new SampleMediatorCommand {

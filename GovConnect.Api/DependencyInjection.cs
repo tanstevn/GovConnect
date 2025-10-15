@@ -30,10 +30,10 @@ namespace GovConnect.Api {
             services.AddMediatorFromAssembly(typeof(MediatorAnchor).Assembly);
             services.AddValidatorsFromAssembly(typeof(MediatorAnchor).Assembly);
 
-            services.AddSingleton<IReferenceDataCache, ReferenceDataCache>();
+            services.AddScoped<IReferenceDataCache, ReferenceDataCache>();
         }
 
-        public static async void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
+        public static void ConfigureApplication(IApplicationBuilder app, IWebHostEnvironment env) {
             if (!env.IsEnvironment("PROD")) {
                 app.UseSwagger();
                 app.UseSwaggerUI(options => {
@@ -49,7 +49,7 @@ namespace GovConnect.Api {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
                 endpoints.MapFallback(context => {
-                    context.Response.StatusCode = StatusCodes.Status405MethodNotAllowed;
+                    context.Response.StatusCode = StatusCodes.Status404NotFound;
 
                     return context
                         .Response
@@ -60,10 +60,10 @@ namespace GovConnect.Api {
             // Middlewares here
             // ...
 
-            await InitializeRequiredServices(app);
+            InitializeRequiredServices(app);
         }
 
-        private static async Task InitializeRequiredServices(IApplicationBuilder app) {
+        private static void InitializeRequiredServices(IApplicationBuilder app) {
             using var scope = app
                 .ApplicationServices
                 .CreateScope();
@@ -75,10 +75,11 @@ namespace GovConnect.Api {
                 .GetAwaiter()
                 .GetResult();
 
-            var dataCache = scope.ServiceProvider
-                .GetRequiredService<IReferenceDataCache>();
-
-            await dataCache.LoadAsync();
+            scope.ServiceProvider
+                .GetRequiredService<IReferenceDataCache>()
+                .LoadAsync()
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }

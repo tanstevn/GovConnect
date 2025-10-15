@@ -42,7 +42,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Barangays");
+                    b.ToTable("Barangays", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.Category", b =>
@@ -65,7 +65,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.City", b =>
@@ -88,7 +88,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.Comment", b =>
@@ -122,7 +122,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.CommentAttachment", b =>
@@ -161,7 +161,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasIndex("CommentId");
 
-                    b.ToTable("CommentAttachments");
+                    b.ToTable("CommentAttachments", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.Municipal", b =>
@@ -184,7 +184,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Municipals");
+                    b.ToTable("Municipals", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.PriorityLevel", b =>
@@ -201,7 +201,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PriorityLevels");
+                    b.ToTable("PriorityLevels", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.Request", b =>
@@ -249,7 +249,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasIndex("SubcategoryId");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Requests", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.RequestAttachment", b =>
@@ -288,7 +288,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasIndex("RequestId");
 
-                    b.ToTable("RequestAttchments");
+                    b.ToTable("RequestAttchments", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.RequestStatusHistory", b =>
@@ -324,7 +324,7 @@ namespace GovConnect.Data.Migrations
                     b.HasIndex("UpdatedBy")
                         .IsUnique();
 
-                    b.ToTable("RequestStatusHistories");
+                    b.ToTable("RequestStatusHistories", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.Role", b =>
@@ -354,7 +354,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.Status", b =>
@@ -378,7 +378,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Statuses");
+                    b.ToTable("Statuses", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.Subcategory", b =>
@@ -406,7 +406,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Subcategories");
+                    b.ToTable("Subcategories", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.User", b =>
@@ -447,7 +447,7 @@ namespace GovConnect.Data.Migrations
                     b.HasIndex("UserDetailId")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.UserDetails", b =>
@@ -489,7 +489,7 @@ namespace GovConnect.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserDetails");
+                    b.ToTable("UserDetails", (string)null);
                 });
 
             modelBuilder.Entity("GovConnect.Data.Entities.Comment", b =>

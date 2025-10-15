@@ -1,7 +1,5 @@
 ﻿using GovConnect.Data.Abstractions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using GovConnect.Data.Entities;
 
 namespace GovConnect.Data.Utils {
     public static class Extensions {
